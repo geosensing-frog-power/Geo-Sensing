@@ -9,7 +9,7 @@
     <title>Register Page</title>
 
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
     <style>
@@ -28,64 +28,55 @@
         }
       }
     .col-md-8 {
-    text-align: center;
+      
         margin: auto;
         padding: 10px;
+        border-radius: 3px;
      }
-
-            
-        }
+   
     </style>
     <!-- Custom styles for this template -->
     <link href="css/form-validation.css" rel="stylesheet">
   </head>
-  <body class="bg-light"><div>
+  <body class="bg-light">
     <div class="container">
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" src="png/location.png" alt="" width="72" height="72">
     <h2>Register Page</h2>
-    <p class="lead">Please enter your details below</p>
+    <p class="lead">Please enter your details below. All of your information will be secured</p>
   </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8 order-md-1">
+     
       <form class="needs-validation" novalidate>
+          <h4 class="mb-3">Your Details</h4>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+           
+            <input type="text" class="form-control" id="firstName" placeholder="First Name" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+           
+            <input type="text" class="form-control" id="lastName" placeholder="Last Name" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
-        </div>
-
-
-                <div class="mb-3">
-          <label for="username">Username</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">@</span>
-            </div>
-            <input type="text" class="form-control" id="username" placeholder="Username" required>
-            <div class="invalid-feedback" style="width: 100%;">
-              Your username is required.
-            </div>
+        
+          <div class="col-md-6 mb-3">
+          
+          <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+          <div class="invalid-feedback">
+            Please enter a valid email address.
           </div>
         </div>
-
-        <div class="mb-3">
-          <label for="username">Password</label>
+        <div class="col-md-6 mb-3">
+        
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">@</span>
-            </div>
+            
             <input type="password" class="form-control" id="password" placeholder="Password" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your Password is required.
@@ -93,19 +84,22 @@
           </div>
             
         </div>
-          
-        <div class="mb-3">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address.
+            <div class="col-md-6 mb-3">
+        
+          <div class="input-group">
+            
+            <input type="password" class="form-control" id="password" placeholder="Re-type Password" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your Password is required.
+            </div>
           </div>
+            
         </div>
+          </div>
+        <hr class="mb-4">
 
-    
-    
+        <h4 class="mb-3">Payment Details</h4>
 
-        <h4 class="mb-3">Payment via Credit Card</h4>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="cc-name">Name on card</label>
@@ -140,18 +134,16 @@
           </div>
         </div>
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <button class="btn btn-primary btn-block" type="submit">Register</button>
       </form>
     </div>
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2017-2019 GeoSense Parking</p>
+    <p class="mb-1">&copy; 2017-2019 Company Name</p>
   </footer>
-</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-<script src="js/form-validation.js"></script>
-</body>
+      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+        <script src="js/form-validation.js"></script></body>
 </html>
