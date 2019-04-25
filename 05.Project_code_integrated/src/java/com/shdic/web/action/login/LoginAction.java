@@ -31,8 +31,6 @@ public class LoginAction extends BaseAction{
 	private LoginService loginService;
 	
 	String name = null;
-
-
 	Logger logger = LoggerFactory.getLogger(LoginAction.class);
 
 	//add user information 
@@ -42,9 +40,10 @@ public class LoginAction extends BaseAction{
 				Map conditions = new HashMap();
 				String email = request.getParameter("email")==null?"x":request.getParameter("email");
 				String password = request.getParameter("password")==null?"x":request.getParameter("password");
-				conditions.put("name", name);
+				conditions.put("email", email);
+				conditions.put("password", password);
 				//retStr = loginService.insertName(conditions);
-				
+				retStr = loginService.insertUser(conditions);
 				System.out.println("login successful!email=> "+email+password);
 		    }catch(Exception e){
 		    	retStr = "Login failed,Please try it again!";	
