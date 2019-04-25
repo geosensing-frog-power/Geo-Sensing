@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+ <Resource name="LIDH"
+       auth="Container"
+       type="javax.sql.DataSource"
+       driverClassName="oracle.jdbc.driver.OracleDriver"
+       url="jdbc:oracle:thin:@192.168.109.110:1521:karldb"
+       username="karl"
+       password="karldb"
+       maxActive="100"
+       maxIdle="30"
+       maxWait="10000"
+    logAbandoned="true" />
+    
+</Context>

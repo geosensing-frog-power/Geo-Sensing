@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Hweb">
+        <wb-resource deploy-path="/" source-path="/WebRoot"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/conf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
+        <property name="context-root" value="/Hweb"/>
+        <property name="java-output-path" value="/Hweb/WebRoot/WEB-INF/classes"/>
+    </wb-module>
+</project-modules>

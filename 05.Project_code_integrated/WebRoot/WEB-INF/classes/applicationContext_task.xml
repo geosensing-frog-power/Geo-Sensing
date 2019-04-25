@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/task   
+       		http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+    
+    <!-- 扫描注解 @Scheduled，开始任务-->
+    <!--<task:executor id="executorId" pool-size="5" />  
+    <task:scheduler id="schedulerId" pool-size="10" />
+	<task:annotation-driven executor="executorId" scheduler="schedulerId" />  
+	
+	--><!-- 若不用注解 -->
+	<!-- 
+	<task:scheduled-tasks> 
+     <task:scheduled ref="taskBean" method="doTaskOne" fixed-delay="60000" /> 
+     <task:scheduled ref="taskBean" method="doTaskTwo" cron="0 0/30 * * * ?" /> 
+ 	</task:scheduled-tasks>
+ 	--> 
+</beans>

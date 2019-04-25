@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!--
+		<bean id="dataSource"
+		class="org.logicalcobwebs.proxool.ProxoolDataSource"> <property
+		name="driver" value="${jdbc.driverClassName}" /> <property
+		name="driverUrl" value="${jdbc.url}" /> <property name="user"
+		value="${jdbc.username}"/> <property name="password"
+		value="${jdbc.password}" /> <property name="maximumConnectionCount"
+		value="${proxool.maxConnCount}" /> <property
+		name="minimumConnectionCount" value="${proxool.minConnCount}" />
+		<property name="statistics" value="${proxool.statistics}" /> <property
+		name="simultaneousBuildThrottle"
+		value="${proxool.simultaneousBuildThrottle}" /> <property name="trace"
+		value="${proxool.trace}" /> <property name="verbose"
+		value="${proxool.verbose}" /> </bean> <bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close"> <property name="driverClass"
+		value="oracle.jdbc.driver.OracleDriver" /> <property name="jdbcUrl"
+		value="jdbc:oracle:thin:@10.14.47.124:1521:orcl" /> <property
+		name="user" value="dtgk" /> <property name="password" value="dtgk" />
+		<property name="maxPoolSize" value="50" /> <property
+		name="minPoolSize" value="10" /> <property name="initialPoolSize"
+		value="10" /> <property name="acquireIncrement" value="5" /> <property
+		name="numHelperThreads" value="10" /> <property
+		name="maxStatementsPerConnection" value="10" /> <property
+		name="idleConnectionTestPeriod" value="10000" /> <property
+		name="testConnectionOnCheckin" value="true" /> <property
+		name="maxIdleTime" value="28000" /> </bean>
+	-->
+	<!--
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> <property name="driverClassName"
+		value="oracle.jdbc.driver.OracleDriver" /> <property name="url"
+		value="jdbc:oracle:thin:@10.14.47.124:1521:orcl" /> <property
+		name="username" value="dtgk" /> <property name="password" value="dtgk"
+		/> <property name="maxActive" value="50" /> <property name="maxIdle"
+		value="5" /> <property name="maxWait" value="10000" /> </bean>
+	-->
+
+	<!--
+		<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource"><ref
+		local="targetDataSource"/></property> </bean>
+	-->
+	<!--tomcat 	--> 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/LIDH</value>
+		</property>
+	</bean>
+	 <!-- was
+	 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>CRJWGR</value>
+		</property>
+	</bean>-->
+	
+	<!--tomcat 
+	<bean id="crjjwryDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/DS_CRJJWRY</value>
+		</property>
+	</bean>
+	-->
+	<!-- was
+	 <bean id="crjjwryDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>DS_CRJJWRY</value>
+		</property>
+	</bean>
+	-->
+	<!-- tomcat
+	<bean id="crjjwryYjDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/DS_CRJJWRY_YJ</value>
+		</property>
+	</bean>
+	 -->
+	<!-- was
+	<bean id="crjjwryYjDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>DS_CRJJWRY_YJ</value>
+		</property>
+	</bean>
+	-->
+	<!-- tomcat 
+	<bean id="crjdzdaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/DS_LOG</value>
+		</property>
+	</bean>
+	-->
+	<!-- was
+	<bean id="crjdzdaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>DS_LOG</value>
+		</property>
+	</bean>
+	-->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 
+	<bean id="crjjwryJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="crjjwryDataSource" />
+	</bean>
+	
+	<bean id="crjjwryYjJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="crjjwryYjDataSource" />
+	</bean>
+	
+	<bean id="logJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="crjdzdaDataSource" />
+	</bean>
+	 -->
+</beans>
