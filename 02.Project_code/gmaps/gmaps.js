@@ -764,6 +764,7 @@ GMaps.prototype.createMarker = function(options) {
       details = options.details,
       fences = options.fences,
       outside = options.outside,
+      inside = options.inside,
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
@@ -774,6 +775,7 @@ GMaps.prototype.createMarker = function(options) {
   delete marker_options.lng;
   delete marker_options.fences;
   delete marker_options.outside;
+     delete marker_options.inside;
 
   var marker = new google.maps.Marker(marker_options);
 
@@ -850,11 +852,19 @@ GMaps.prototype.createMarker = function(options) {
 
   if (marker.fences) {
     google.maps.event.addListener(marker, 'dragend', function() {
-      self.checkMarkerGeofence(marker, function(m, f) {
+      self.checkMarkerGeofence1(marker, function(m, f) {
         outside(m, f);
       });
     });
   }
+    if (marker.fences) {
+    google.maps.event.addListener(marker, 'dragend', function() {
+      self.checkMarkerGeofence2(marker, function(m, f) {
+        inside(m, f);
+      });
+    });
+  }
+
 
   return marker;
 };
@@ -1834,16 +1844,44 @@ GMaps.prototype.checkGeofence = function(lat, lng, fence) {
   return fence.containsLatLng(new google.maps.LatLng(lat, lng));
 };
 
-GMaps.prototype.checkMarkerGeofence = function(marker, outside_callback) {
+    
+    
+    var markerInside = false;
+    var markerOutside = false;
+    
+    GMaps.prototype.checkMarkerGeofence1 = function(marker, outside_callback) {     
   if (marker.fences) {
     for (var i = 0, fence; fence = marker.fences[i]; i++) {
       var pos = marker.getPosition();
-      if (!this.checkGeofence(pos.lat(), pos.lng(), fence)) {
+      if(!this.checkGeofence(pos.lat(), pos.lng(), fence) && !markerOutside) {
         outside_callback(marker, fence);
+          markerOutside = true;
+          markerInside = false;
       }
+        
     }
+      
   }
 };
+    
+ GMaps.prototype.checkMarkerGeofence2 = function(marker, outside_callback) {
+        
+  if (marker.fences) {
+    for (var i = 0, fence; fence = marker.fences[i]; i++) {
+      var pos = marker.getPosition();
+      if(this.checkGeofence(pos.lat(), pos.lng(), fence) && !markerInside ){
+         outside_callback(marker, fence);
+          markerOutside = false;
+          markerInside = true;
+      }
+        
+    }
+      
+  }
+};
+    
+    
+  
 
 GMaps.prototype.toImage = function(options) {
   var options = options || {},

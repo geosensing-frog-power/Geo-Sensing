@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-       <title>Geo-Sensing Home</title>
+       <title>Geo&mdash;Sensing Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
    
-<script type="text/javascript" src="js/jquery-3.4.0.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD53PH_kXaJD53yK6fck6TfkFahftkOY3g"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="gmaps/gmaps.js"></script>
-<script type="text/javascript" src="js/geoLocat"></script>   
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -99,11 +99,9 @@
             [-12.372492288782292, 130.86467315665425]
      
           ];
-        
-        
       polygon = map.drawPolygon({
         paths: path,
-        strokeColor: '#FF0000',
+        strokeColor: '#BBD8E9',
         strokeOpacity: 1,
         strokeWeight: 3,
         fillColor: '#BBD8E9',
@@ -116,30 +114,12 @@
         lng: 130.86467315665425,
         draggable: true,
         fences: [polygon],
-        inside:function(m, f){
-          alert('inside the fence');
-        },
         outside: function(m, f){
-          alert('Outside the fence');
+          alert('This marker has been moved outside of its fence');
         }
       });
 
-      GMaps.geolocate({
-    success: function(position){
-map.addMarker({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        fences: [polygon],
-        draggable: true,
-        inside:function(m, f){
-          alert('inside the fence');
-        },
-        outside: function(m, f){
-          alert('Outside the fence');
-        }
-}); 
-    }
-});
+      
         
     });
   </script>     
