@@ -48,9 +48,10 @@ lastname	varchar2	(30) not null,
 email		varchar2	(30) not null,
 password	varchar2	(30) not null,
 phone_number	number	(10) ,--not null,
-bsb_number		number	(6 ) ,
-acc_number		number	(8 ) ,
-cvv_number		number	(3 ) 
+cc_number	number	(6 ) ,
+cc_expiration	date ,
+cc_cvv		number	(3 ) ,
+cc_name  varchar2(30)
 );
 
 create unique index karl.pk_user_info on  karl.T_user_info(user_id) ; 
@@ -59,7 +60,7 @@ alter table karl.T_user_info add constraint pk_user_info primary key (user_id) u
 create index karl.i_user_info_name on karl.t_user_info(firstname,lastname);
 create unique index karl.i_user_info_email on karl.t_user_info(email);
 create unique index karl.i_user_info_phone on karl.t_user_info(phone_number);
-create unique index karl.i_user_info_bsb on karl.t_user_info(bsb_number);
+create unique index karl.i_user_info_cc_no on karl.t_user_info(cc_number);
 
 
 --create 
