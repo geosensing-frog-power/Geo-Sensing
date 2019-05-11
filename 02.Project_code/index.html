@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-       <title>Geo-Sensing Home</title>
+       <title>Geo-Sensing </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -13,8 +13,7 @@
 <script type="text/javascript" src="gmaps/gmaps.js"></script>
 <script type="text/javascript" src="js/geoLocat"></script>   
 <link href="css/bootstrap.min.css" rel="stylesheet">
-
-
+      
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -29,16 +28,7 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-      }
-        
-        
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 400px;
-          width: 100%;
-      }
-      
+        }
       }
   
     </style>
@@ -59,135 +49,15 @@
       </nav>
 </div>
 
-<div class="pricing-header px-3 py-3 mx-auto text-center">
-  <h5 class="alert alert-secondary">Parking Made Easier </h5> 
-   
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">CDU Parking</h1>
+    <p class="lead font-weight-normal">Say Goodbye to tickets and coins. </p>  <p class="lead font-weight-normal">This locaton based parking system does it all for you. </p> <p class="lead font-weight-normal"> Just park and walk away.</p>
+    <a class="btn btn-outline-secondary" href="Register.html">Register now </a>
+  </div>
 </div>
-   
- <script type="text/javascript">
-    var map;
-    $(document).ready(function(){
-       map = new GMaps({
-        el: '#map',
-        lat: -12.368438971967333, 
-        lng: 130.86813254695653,
-        zoom: 15
-          });
       
-          var path = [
-            [-12.36865307501286, 130.86828340572174],
-            [-12.368841711626416, 130.8690344242459],
-            [-12.369208504651823, 130.87055791896637],
-            [-12.369606736496342, 130.87226380389984],
-            [-12.369795372421361, 130.8729933647519], 
-            [-12.369847771265247, 130.87321867030914],
-            [-12.371283495498567, 130.87287534755524],
-            [-12.373180316145135, 130.87239254993256],
-            [-12.373526143839115, 130.87241400760468],
-            [-12.373756695380699, 130.87224234622772],
-            [-12.373924369101285, 130.87213505786713], 
-            [-12.374154920291316, 130.87230671924408],
-            [-12.374333073344218, 130.87246765178497],
-            [-12.374930409164095, 130.87282170337494],
-            [-12.37560110038612, 130.87335814517792],
-            [-12.376474529842493, 130.8721404265517],
-            [-12.375216986594396, 130.87029506674946], 
-            [-12.375091231936503, 130.8685355376357],
-            [-12.374755885886032, 130.8670764159316],
-            [-12.374210947635593, 130.86604644766987],
-            [-12.373456415873155, 130.86527397147358],
-            [-12.372492288782292, 130.86467315665425]
-     
-          ];
-        
-        
-      polygon = map.drawPolygon({
-        paths: path,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1,
-        strokeWeight: 3,
-        fillColor: '#BBD8E9',
-        fillOpacity: 0.6
-      });
-
-     
-      map.addMarker({
-        lat: -12.372492288782292,
-        lng: 130.86467315665425,
-        draggable: true,
-        fences: [polygon],
-        inside:function(m, f){
-          alert('inside the fence');
-        },
-        outside: function(m, f){
-          alert('Outside the fence');
-        }
-      });
-
-      GMaps.geolocate({
-    success: function(position){
-map.addMarker({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        fences: [polygon],
-        draggable: true,
-        inside:function(m, f){
-          alert('inside the fence');
-        },
-        outside: function(m, f){
-          alert('Outside the fence');
-        }
-}); 
-    }
-});
-        
-    });
-  </script>     
-      
-      
-<div class="container" style="overflow:visible">
-    
-  <div id="map"></div>
-    
-    
-    
-    
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Parking Area</th>
-      <th scope="col">Available Spaces</th>
-      <th scope="col">Price</th>
-      <th scope="col">Booking Times</th>
-        <th scope="col">Distance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">A</th>
-      <td>2</td>
-      <td>$3-2hr</td>
-      <td>8am-4pm</td>
-      <td>150m</td>
-    </tr>
-    <tr>
-      <th scope="row">B</th>
-      <td>12</td>
-      <td>$3-2hr</td>
-      <td>8am-4pm</td>
-      <td>50m</td>
-    </tr>
-    <tr>
-      <th scope="row">C</th>
-      <td>21</td>
-      <td>$3-2hr</td>
-      <td>8am-4pm</td>
-      <td>10m</td>
-    </tr>
-  </tbody>
-</table>
-
-  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <footer class="container py-5p t-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="png/location.png" alt="" width="24" height="24">
@@ -196,8 +66,6 @@ map.addMarker({
 
     </div>
   </footer>
-</div>
-   
       
       
       
