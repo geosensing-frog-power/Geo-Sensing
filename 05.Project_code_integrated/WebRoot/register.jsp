@@ -82,9 +82,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="col-md-6 mb-3">
         
-          <div class="input-group">
-            
-            <input name="password1" type="password1" class="form-control" id="password1" placeholder="Password" required>
+          <div class="">
+            <button type="button" class="btn btn-success">Light</button>
             <div class="invalid-feedback" style="width: 100%;">
               Your Password is required.
             </div>
@@ -95,7 +94,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
           <div class="input-group">
             
-            <input name="password2" type="password2" class="form-control" id="password2" placeholder="Re-type Password" required>
+            <input name="password2" type="password" class="form-control" id="password2" placeholder="Re-type Password" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your Password is required.
+            </div>
+          </div>
+            
+        </div>
+        <div class="col-md-6 mb-3">
+        
+          <div class="input-group">
+            <input name="password1" type="password" class="form-control" id="password1" placeholder="Password" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your Password is required.
             </div>
@@ -118,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
           <div class="col-md-6 mb-3">
             <label for="cc-number">Credit card number</label>
-            <input name="cc_number" type="text" class="form-control" id="cc-number" placeholder="" required>
+            <input name="cc_number" type="text" class="form-control" id="cc-number" maxlength="16" placeholder="" required>
             <div class="invalid-feedback">
               Credit card number is required
             </div>
@@ -126,15 +135,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="row">
           <div class="col-md-3 mb-3">
-            <label for="cc-expiration">Expiry Date</label>
-            <input name="cc_expiration" type="text" class="form-control" id="cc-expiration" placeholder="" required>
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
             <label for="cc-cvv">CVV</label>
-            <input name="cc_cvv" type="text" class="form-control" id="cc-cvv" placeholder="" required>
+            <input name="cc_cvv" type="text" class="form-control" id="cc-cvv" maxlength="3" placeholder="" required>
             <div class="invalid-feedback">
               Security code required
             </div>
