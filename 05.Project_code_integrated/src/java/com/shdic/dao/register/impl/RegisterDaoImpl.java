@@ -16,6 +16,8 @@ import org.springframework.stereotype.Repository;
 
 import com.shdic.dao.dmgl.DmglDao;
 import com.shdic.dao.register.RegisterDao;
+import com.shdic.tools.checkData;
+import com.sun.faces.util.ToolsUtil;
 
 @SuppressWarnings("unchecked")
 @Repository("registerDao")
@@ -36,7 +38,7 @@ public class RegisterDaoImpl implements RegisterDao {
     	String cc_number = (String) conditions.get("cc_number");
     	String cc_cvv = (String) conditions.get("cc_cvv");
     	String cc_expiration = (String) conditions.get("cc_expiration");
-    	
+    	checkData validation = new checkData();
 //		+conditions.get("email") 
 //		+conditions.get("firstname")
 //		+conditions.get("lastname")
@@ -46,34 +48,38 @@ public class RegisterDaoImpl implements RegisterDao {
 //		+conditions.get("cc_cvv")
 //		+conditions.get("cc_expiration")
 		try{
-			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //oracle driver
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.109.110:1521:karldb", "karl", "karldb");  
-			//conn.setAutoCommit(false);
-			StringBuffer sql = new StringBuffer("insert into t_user_info (user_id," +
-					"firstname," +
-					"lastname," +
-					"email," +
-					"password," +
-					"cc_name," +
-					"cc_number," +
-					"cc_cvv," +
-					"cc_expiration) values (karl.Q_user_info.nextval,?,?,?,?,?,?,?,?) ");
-			
-			System.out.println("SQL="+sql+"*"+email);
-			ps = conn.prepareStatement(sql.toString());
-			ps.setString(1, firstname);
-			ps.setString(2, lastname);
-			ps.setString(3, email);
-			ps.setString(4, password1);
-			ps.setString(5, null);
-			ps.setString(6, null);
-			ps.setString(7, null);
-			ps.setString(8, null);
-			ps.executeUpdate();
-			conn.commit();
-			System.out.println("register success!");
-			result = "success";
+			if (validation.emailValidation(email)){
+				return "emailIsExisted";
+			}
+			else{
+				Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //oracle driver
+				conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.19.110:1521:karldb", "karl", "karldb");  
+				//conn.setAutoCommit(false);
+				StringBuffer sql = new StringBuffer("insert into t_user_info (user_id," +
+						"firstname," +
+						"lastname," +
+						"email," +
+						"password," +
+						"cc_name," +
+						"cc_number," +
+						"cc_cvv," +
+						"cc_expiration) values (karl.Q_user_info.nextval,?,?,?,?,?,?,?,?) ");
 				
+				System.out.println("SQL="+sql+"*"+email);
+				ps = conn.prepareStatement(sql.toString());
+				ps.setString(1, firstname);
+				ps.setString(2, lastname);
+				ps.setString(3, email);
+				ps.setString(4, password1);
+				ps.setString(5, null);
+				ps.setString(6, null);
+				ps.setString(7, null);
+				ps.setString(8, null);
+				ps.executeUpdate();
+				conn.commit();
+				System.out.println("register success!");
+				result = "success";
+			}	
 		}catch(Exception e){
 			result = "error,please try again";	
 			try{
