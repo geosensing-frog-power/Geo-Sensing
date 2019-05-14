@@ -1,13 +1,14 @@
 --T_parking_slots
+drop table karl.T_parking_slots;
 create table karl.T_parking_slots (
 parking_id    varchar2  (10) not null,
 Slot_id      varchar2  (10) not null,
 parking_station  varchar2  (30),
 charging_from  varchar2  (8)     ,   --'08:00 AM'
-charging_to    varchar2  (8)     ,   --'04:00 PM'
+charging_to    varchar2  (8)     ,   --'16:00 PM'
 location_lat    varchar2	(30),
 location_lng	varchar2	(30),
-status       varchar2	(2),
+status       varchar2	(10),
 price        number(10)
 );
 
@@ -19,13 +20,13 @@ alter table karl.T_parking_slots add constraint pk_parking_slots primary key (pa
 set define off;
 
 insert into karl.T_parking_slots values
-('A','01','Purple A','08:00 AM','04:00 PM','-12.371799145462651','130.86761444807055','01',3);
+('A','01','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
 insert into karl.T_parking_slots values
-('A','02','Purple A','08:00 AM','04:00 PM','-12.371799145462651','130.86761444807055','01',3);
+('A','02','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
 insert into karl.T_parking_slots values
-('A','03','Purple A','08:00 AM','04:00 PM','-12.371799145462651','130.86761444807055','01',3);
+('A','03','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
 insert into karl.T_parking_slots values
-('A','04','Purple A','08:00 AM','04:00 PM','-12.371799145462651','130.86761444807055','01',3);
+('A','04','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
 
 commit;
 
