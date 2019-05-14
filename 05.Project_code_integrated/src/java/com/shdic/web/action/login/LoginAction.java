@@ -1,11 +1,15 @@
 package com.shdic.web.action.login;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.swing.table.DefaultTableModel;
 
 import net.sf.json.JSONArray;
 
@@ -25,31 +29,54 @@ import com.shdic.web.action.BaseAction;
 @Namespace("/")
 @Action(value="loginAction")
 public class LoginAction extends BaseAction{
-	
-
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
 	String name = null;
 	Logger logger = LoggerFactory.getLogger(LoginAction.class);
-
+	String retStr = "";
+	Map userInfo = new HashMap();
+	DefaultTableModel  listParking=null;
 	//add user information 
-		public String insertUser(){
-		    String retStr = "";
+		public String searchUser() throws IOException, ServletException{
+		    
 		    try{
-				Map conditions = new HashMap();
+				
 				String email = request.getParameter("email")==null?"x":request.getParameter("email");
 				String password = request.getParameter("password")==null?"x":request.getParameter("password");
-				conditions.put("email", email);
-				conditions.put("password", password);
+				userInfo.put("email", email);
+				userInfo.put("password", password);
 				//retStr = loginService.insertName(conditions);
-				retStr = loginService.insertUser(conditions);
+				retStr = loginService.searchUser(userInfo);
+				//fetch available slots for login success
+				if(retStr.equals("success")){
+					listParking = loginService.listParkingArea();
+				}
 				System.out.println("login successful!email=> "+email+password);
+				System.out.println("retStr=> "+retStr);
+
+
 		    }catch(Exception e){
 		    	retStr = "Login failed,Please try it again!";	
 				e.printStackTrace();
 			}finally{
-				pw(new StringBuffer(retStr));
+				//pw(new StringBuffer(retStr));
+				if (retStr.equals("success")){
+					//direct to booking page ,login is seccussful			
+					//ServletActionContext.getResponse().sendRedirect("test_direct.jsp");
+					System.out.println("login successful!start dispatch!booking=> "+retStr.equals("success"));
+					session.put("userInfo", userInfo);
+					session.put("listParking", listParking);
+					RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/booking.jsp");
+					System.out.println("login successful!finish dispatch!booking=> ");
+					reqDispatcher.forward(request,response);
+					System.out.println("dispatched!");
+				}else{
+					System.out.println("retStr <> success");
+					session.put("retStr", retStr);
+					ServletActionContext.getResponse().sendRedirect("login.jsp");
+				}
+					
 			}
 			return null;
 
@@ -101,6 +128,7 @@ public class LoginAction extends BaseAction{
 		try{
 			ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
 			ps = ServletActionContext.getResponse().getWriter();
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}

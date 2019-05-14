@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.swing.table.DefaultTableModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,15 @@ public class LoginServiceImpl implements LoginService{
 
 
 	@Override
-	public String insertUser(Map conditions) throws Exception {
+	public String searchUser(Map conditions) throws Exception {
 		// TODO Auto-generated method stub
-		return  loginDao.insertUser(conditions);
+		return  loginDao.searchUser(conditions);
 	}
-
+	
+	
+	@Override
+	public DefaultTableModel listParkingArea() throws Exception{
+		// TODO Auto-generated method stub
+		return  loginDao.listParkingArea();
+	}
 }

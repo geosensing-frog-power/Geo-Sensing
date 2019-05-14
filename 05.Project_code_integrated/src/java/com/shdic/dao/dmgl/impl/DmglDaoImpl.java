@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.shdic.conn.CreateConn;
 import com.shdic.dao.dmgl.DmglDao;
 
 @SuppressWarnings("unchecked")
@@ -31,8 +32,9 @@ public class DmglDaoImpl  implements DmglDao{
     	List reList = new ArrayList();
     	String name = (String) conditions.get("name");
 		try{
-			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //ORACLE驱动
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.109.110:1521:karldb", "karl", "karldb"); 
+			conn =  (Connection) new CreateConn().createDBSession();
+			//Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //ORACLE驱动
+			//conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.109.110:1521:karldb", "karl", "karldb"); 
 			//Class.forName("com.mysql.jdbc.Driver").newInstance(); //ORACLE驱动
 			//conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test1", "root", "root"); 
 			//conn.setAutoCommit(false);
