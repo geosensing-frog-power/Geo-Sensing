@@ -9,5 +9,13 @@
 	<constant name="struts.multipart.maxSize" value="83886080"/>
 	<constant name="struts.custom.i18n.resources" value="message" />
 	<constant name="actionPackages" value="com.shdic.web.action" />
+	<!-- 测试部分
+	<package name="test" extends="struts-default" namespace="/Hweb">
+    	<action name="test*" class="com.shdic.web.action.test.TestResponseAction" method="good">
+        	<result name="ok" type="dispatcher">/test_direct_ok.jsp</result>
+        	<result name="input" type="dispatcher">/test_direct_ok.jsp</result>
+    	</action>    	
+	</package>
+	 -->
 </struts>    
  

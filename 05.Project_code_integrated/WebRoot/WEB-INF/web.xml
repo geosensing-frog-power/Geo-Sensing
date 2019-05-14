@@ -56,10 +56,10 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	<session-config>
-		<session-timeout>30</session-timeout>
+		<session-timeout>500</session-timeout>
 	</session-config>
 	<welcome-file-list>
-		<welcome-file>test.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 	<error-page>
 		<error-code>500</error-code>

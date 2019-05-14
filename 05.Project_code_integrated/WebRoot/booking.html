@@ -10,7 +10,7 @@
 <script type="text/javascript" src="js/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD53PH_kXaJD53yK6fck6TfkFahftkOY3g"></script>
 <script type="text/javascript" src="gmaps/gmaps.js"></script>
-<script type="text/javascript" src="js/geoLocat"></script>   
+<script type="text/javascript" src="js/geoLocation.js"></script>   
 <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
@@ -67,6 +67,47 @@
         lng: 130.86813254695653,
         zoom: 15
           });
+   
+    $("#tableDetails").hide();  
+$("#showdetails" ).hide();  
+        
+        //show original table
+        $( "#showdetails" ).click(function() {
+            
+            $("#tableDetails").hide(); 
+        $("#tableInfo").show();  
+            $("#showdetails" ).hide();  
+        });
+        
+        
+         //once booked change slot to unavailable 
+        $( "#slot1" ).click(function() {
+            
+           $('#a_slot1').text("Unavailable");   
+            $("#slot1").toggleClass("btn-outline-danger");
+        });
+        
+        
+         $( "#slot2" ).click(function() {
+            
+           $('#a_slot2').text("Unavailable");   
+        });
+        
+        
+         $( "#slot3" ).click(function() {
+            
+           $('#a_slot3').text("Unavailable");   
+        });
+        
+        
+         $( "#slot4" ).click(function() {
+            
+           $('#a_slot4').text("Unavailable"); 
+               $("#slot4").toggleClass("btn-outline-danger");
+        });
+        
+        
+    
         
     $( "#purple" ).click(function() {
  map = new GMaps({
@@ -75,6 +116,10 @@
         lng: 130.86761444807055,
         zoom: 20
           });   
+        $("#tableDetails").show();  
+  $("#showdetails" ).show();  
+        $("#tableInfo").hide();  
+        
         var pathB = [
 new google.maps.LatLng(-12.371684359129558, 130.86758096682388),
 new google.maps.LatLng(-12.371722348017714, 130.86762790548164),
@@ -154,20 +199,8 @@ map.addMarker({
 }); 
     }
 });
-     
-        
-        
-        
+      
     });
-     
-     
-     
-     
-     
-     
-     
-     
-     
      
   </script>     
       
@@ -175,15 +208,13 @@ map.addMarker({
 <div class="container" style="overflow:visible">
   <div id="map"></div>
     
-<table class="table">
+<table class="table" id="tableInfo">
   <thead class="thead-dark">
     <tr>
-      
       <th scope="col">Parking Area</th>
       <th scope="col">Available Spaces</th>
       <th scope="col">Price</th>
       <th scope="col">Booking Times</th>
-        <th scope="col">Distance</th>
     </tr>
   </thead>
   <tbody>
@@ -192,25 +223,68 @@ map.addMarker({
       <td>2</td>
       <td>$3-2hr</td>
       <td>8am-4pm</td>
-      <td>150m</td>
     </tr>
     <tr>
       <th scope="row"><button type="button" class="btn btn-outline-success" >Pink B</button></th>
       <td>12</td>
       <td>$3-2hr</td>
       <td>8am-4pm</td>
-      <td>50m</td>
     </tr>
-    <tr>
-      <th scope="row"> <button type="button" class="btn btn-outline-success" >Orange C</button></th>
-      <td>21</td>
-      <td>$3-2hr</td>
-      <td>8am-4pm</td>
-      <td>10m</td>
-    </tr>
+   
   </tbody>
 </table>
+<table class="table table-bordered" id="tableDetails">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Parking Area</th>
+        <th scope="col" >Parking Slot</th>
+        <th scope="col">Status</th>
+     <th scope="col">Price</th>
+      <th scope="col">Booking Times</th>
+        <th scope="col">Book Slot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><h3 type="" class="" >Purple A</h3></th>
+      <td>Slot 1</td>
+      <td id="a_slot1">Available</td>
+        <td>$3-2hr</td>
+         <td>8am-4pm</td>
+         <td><button type="button" class="btn btn-outline-success" id="slot1">Book Now</button></td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>Slot 2</td>
+      <td id="a_slot2">Unavailable</td>
+        <td>$3-2hr</td>
+         <td>8am-4pm</td>
+         <td><button type="button" class="btn btn-outline-danger"  id="slot2">Book Now</button></td>
+    </tr>
+      <tr>
+      <th scope="row"></th>
+      <td >Slot 3</td>
+      <td id="a_slot3">Unavailable</td>
+        <td>$3-2hr</td>
+         <td>8am-4pm</td>
+         <td><button type="button" class="btn btn-outline-danger" id="slot3">Book Now</button></td>
+    </tr>
+      <tr>
+      <th scope="row"></th>
+      <td >Slot 4</td>
+      <td id="a_slot4">Available</td>
+        <td>$3-2hr</td>
+         <td>8am-4pm</td>
+         <td><button type="button" class="btn btn-outline-success" id="slot4">Book Now</button></td>
+    </tr>
+   
+  </tbody>
+    
+</table>
+    <button type="button" class="btn btn-outline-secondary" id="showdetails">Back</button>
 
+    
+    
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">

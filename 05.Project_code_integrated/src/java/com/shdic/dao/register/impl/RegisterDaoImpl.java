@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.shdic.conn.CreateConn;
 import com.shdic.dao.dmgl.DmglDao;
 import com.shdic.dao.register.RegisterDao;
 import com.shdic.tools.checkData;
@@ -38,22 +39,20 @@ public class RegisterDaoImpl implements RegisterDao {
     	String cc_number = (String) conditions.get("cc_number");
     	String cc_cvv = (String) conditions.get("cc_cvv");
     	String cc_expiration = (String) conditions.get("cc_expiration");
-    	checkData validation = new checkData();
-//		+conditions.get("email") 
-//		+conditions.get("firstname")
-//		+conditions.get("lastname")
-//		+conditions.get("password1")
-//		+conditions.get("cc_name")
-//		+conditions.get("cc_number")
-//		+conditions.get("cc_cvv")
-//		+conditions.get("cc_expiration")
+
 		try{
-			if (validation.emailValidation(email)){
-				return "emailIsExisted";
-			}
-			else{
-				Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //oracle driver
-				conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.19.110:1521:karldb", "karl", "karldb");  
+//			if (validation.emailValidation(email)){
+//				return "emailIsExisted";
+//			}
+//			else{
+//			}	
+				//Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //oracle driver
+				//conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.109.110:1521:karldb", "karl", "karldb");
+			conn =  (Connection) new CreateConn().createDBSession();	
+			if(checkEmailExist(conn,email)){
+					result = "email existed!";
+					return result;
+				}
 				//conn.setAutoCommit(false);
 				StringBuffer sql = new StringBuffer("insert into t_user_info (user_id," +
 						"firstname," +
@@ -79,7 +78,7 @@ public class RegisterDaoImpl implements RegisterDao {
 				conn.commit();
 				System.out.println("register success!");
 				result = "success";
-			}	
+
 		}catch(Exception e){
 			result = "error,please try again";	
 			try{
@@ -121,7 +120,41 @@ public class RegisterDaoImpl implements RegisterDao {
 		        conn = null;
 		}
 		return result;
-//		return "successful!~ dao";
 	}
+	
+	
+	
+	public boolean checkEmailExist(Connection conn,String email) throws Exception{
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement ps=null;
+		
+		try{
+			StringBuffer sql = new StringBuffer("select * from T_USER_INFO where EMAIL=?");
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, email);
+			rs=ps.executeQuery();
+			if (rs.next())
+				{
+					result = true;
+			    }
+				
+			else
+				{
+					result = false;
+				}
+			return result;
+		}catch(Exception e){
+			result = false;
+			try{
+				conn.rollback();
+			}catch(SQLException ex){
+				ex.printStackTrace();
+				System.err.println("rollback error");
+			}
+			e.printStackTrace();
+			throw e;			
+		}
+	}	
 
 }

@@ -7,6 +7,7 @@ Map userInfo = new HashMap();
 userInfo = (Map)session.getAttribute("userInfo");
 DefaultTableModel  listParking = (DefaultTableModel)session.getAttribute("listParking");
 String email = null;
+System.out.println("email:"+userInfo.get("email"));
 	if(userInfo!=null){
 		//session.setAttribute("USER","");
 		System.out.println("listview is not null");
@@ -102,6 +103,7 @@ String email = null;
             $.post( "<%=path%>/loginAction!searchUser.action", function( data ) {
   				alert("searchUser again-back!");
 			});
+			location.reload(true);
         });
         
         
@@ -128,13 +130,17 @@ String email = null;
 
         $("#slot_submit").live("click",function(event) {
         //$("#slot_submit1").click(function() {
-        	alert($(this).parent().attr("id"));
-        	alert($(this).parent().parent().children().eq(2).attr("id"));
+        	//alert($(this).parent().attr("id"));
+        	//alert($(this).parent().parent().children().eq(2).attr("id"));
         	$(this).parent().parent().children().eq(2).text("Unavailable"); 
+        	var parking_id = $(this).parent().parent().children().eq(0).text();       	
+        	var slot_id    = $(this).parent().parent().children().eq(1).text();
+        	alert("parking_id:="+parking_id);
+        	alert("slot_id:="+slot_id);
            	 //$('#status1').text("Unavailable"); 
              //$("#slot_submit1").toggleClass("btn-outline-danger");
-             alert("email=>"+ "<%=email%>");
-            $.get('<%=path%>/bookingAction!updateAjax.action',{parking_id:"Donald", slot_id:"Ducktown" },function(responseJson) {
+            alert("email=>"+ "<%=email%>");
+            $.get('<%=path%>/bookingAction!updateAjax.action',{parking_id: parking_id , slot_id: slot_id ,email: "<%=email%>" },function(responseJson) {
 			 	if(responseJson!=null){
 				
 			 	}
@@ -144,7 +150,7 @@ String email = null;
         });      
     
         
-    $( "#purple" ).click(function(event) {
+    $( "#parkingArea" ).click(function(event) {
  		map = new GMaps({
         el: '#map',
         lat: -12.371799145462651, 
@@ -155,7 +161,7 @@ String email = null;
         $("#tableDetails").show();  
   		$("#showdetails" ).show();  
         $("#tableInfo").hide();  
-        alert($("#purple").value);
+        alert($("#parkingArea").value);
         $.get('<%=path%>/bookingAction!listSlots.action',function(responseJson) {
 			if(responseJson!=null){
 				$("#tableDetails").find("tr:gt(0)").remove();
@@ -191,7 +197,7 @@ String email = null;
           
 
         
-        var pathB = [
+var pathB = [
 new google.maps.LatLng(-12.371684359129558, 130.86758096682388),
 new google.maps.LatLng(-12.371722348017714, 130.86762790548164),
 new google.maps.LatLng(-12.371748547247712, 130.86759974228698),
@@ -296,7 +302,7 @@ map.addMarker({
 		System.out.println("AVAILABLE_SPACES:"+listParking.getValueAt(i,listParking.findColumn("AVAILABLE_SPACES")));
    %>
     <tr>
-      <th scope="row"><button value="A" id="purple" type="button" class="btn btn-outline-success" >Purple A</button></th>
+      <th scope="row"><button value="A" id="parkingArea" type="button" class="btn btn-outline-success" >Purple A</button></th>
       <td><%=listParking.getValueAt(i,listParking.findColumn("AVAILABLE_SPACES"))%></td>
       <td>$<%=listParking.getValueAt(i,listParking.findColumn("PRICES"))%>-2hr</td>
       <td><%=listParking.getValueAt(i,listParking.findColumn("CHARGING_FROM"))%>-
@@ -308,7 +314,7 @@ map.addMarker({
   %>
     <!-- Pink B is removed!
     <tr>
-      <th scope="row"><button type="button" class="btn btn-outline-success" >Pink B</button></th>
+      <th scope="row"><button value="A" id="parkingArea" type="button" class="btn btn-outline-success" >Pink B</button></th>
       <td>12</td>
       <td>$3-2hr</td>
       <td>8am-4pm</td>

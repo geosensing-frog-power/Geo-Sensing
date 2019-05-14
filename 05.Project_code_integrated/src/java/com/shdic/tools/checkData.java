@@ -20,11 +20,10 @@ public class checkData {
 	boolean result = false;
 	Connection conn=null;ResultSet rs = null;
 	PreparedStatement ps=null;
-
 	
 	try{
 		Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); //oracle driver
-		conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.19.110:1521:karldb", "karl", "karldb");  
+		conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.109.110:1521:karldb", "karl", "karldb");  
 		//conn.setAutoCommit(false);
 		StringBuffer sql = new StringBuffer("select * from T_USER_INFO where EMAIL=?");
 		ps = conn.prepareStatement(sql.toString());

@@ -1,11 +1,14 @@
 package com.shdic.web.action.register;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 
 import net.sf.json.JSONArray;
 
@@ -35,15 +38,15 @@ public class RegisterAction extends BaseAction{
 	private ValidateInput validateInput;
 	
 	String name = null;
-
-
+	String retStr = "";
+	Map conditions = new HashMap();
 	Logger logger = LoggerFactory.getLogger(RegisterAction.class);
 
 	//add user information 
-		public String registerUser(){
-		    String retStr = "";
+		public String registerUser() throws IOException, ServletException{
+		    
 		    try{
-				Map conditions = new HashMap();
+				
 				String email = request.getParameter("email")==null?"x":request.getParameter("email");
 				String firstname = request.getParameter("firstname")==null?"x":request.getParameter("firstname");
 				String lastname  = request.getParameter("lastname")==null?"x":request.getParameter("lastname");
@@ -141,7 +144,22 @@ public class RegisterAction extends BaseAction{
 		    	retStr = "Register failed,Please try it again!";	
 				e.printStackTrace();
 			}finally{
-				pw(new StringBuffer(retStr));
+				//pw(new StringBuffer(retStr));
+				if (retStr.equals("success")){
+					//direct to booking page ,login is seccussful			
+					//ServletActionContext.getResponse().sendRedirect("test_direct.jsp");
+					System.out.println("login successful!start dispatch!booking=> "+retStr.equals("success"));
+					//session.put("listview", conditions);
+					//RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/login.jsp");
+					//System.out.println("login successful!finish dispatch!booking=> ");
+					//reqDispatcher.forward(request,response);
+					ServletActionContext.getResponse().sendRedirect("/Hweb/login.jsp");
+					System.out.println("redirect success!");
+				}else{
+					System.out.println("retStr <> success:"+retStr);
+					session.put("retStr", retStr);
+					ServletActionContext.getResponse().sendRedirect("/Hweb/register.jsp");
+				}	
 			}
 			return null;
 		}

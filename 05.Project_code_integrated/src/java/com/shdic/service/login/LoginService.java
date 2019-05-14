@@ -2,6 +2,10 @@ package com.shdic.service.login;
 
 import java.util.Map;
 
+import javax.swing.table.DefaultTableModel;
+
 public interface LoginService {
-	String insertUser(Map conditions) throws Exception;
+	String searchUser(Map conditions) throws Exception;
+	
+	DefaultTableModel listParkingArea() throws Exception;
 }

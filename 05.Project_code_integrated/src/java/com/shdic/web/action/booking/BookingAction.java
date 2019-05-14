@@ -43,19 +43,22 @@ public class BookingAction extends BaseAction {
 	public String listSlots() throws IOException, ServletException{
 	    try{
 			
-			String name = request.getParameter("name")==null?"x":request.getParameter("name");
-			String town = request.getParameter("town")==null?"x":request.getParameter("town");
+			String parking_id = request.getParameter("parking_id")==null?"x":request.getParameter("parking_id");
+			String slot_id = request.getParameter("slot_id")==null?"x":request.getParameter("slot_id");
+			String email = request.getParameter("email")==null?"x":request.getParameter("email");
 //			conditions.put("email", email);
 //			conditions.put("password", password);
 			//retStr = loginService.insertName(conditions);
 			//retStr = loginService.insertUser(conditions);
-			System.out.println("login successful!name=> "+name+town);
+			System.out.println("booking listSlot=> "+parking_id+"|"+slot_id+"|"+email);
 			System.out.println("retStr=> "+retStr);
 			
 			SlotBean slot1 =new SlotBean("A","01","Available","2","08:00","06:00");
 			SlotBean slot2 =new SlotBean("A","02","Available","2","08:00","06:00");
 			
-			ArrayList<SlotBean> slots=new ArrayList<SlotBean>();
+			//ArrayList<SlotBean> slots = 
+			
+			ArrayList<SlotBean> slots = new ArrayList<SlotBean>();
 			slots.add(slot1);
 			slots.add(slot2);
 			//country=FetchData.getAllCountries();
@@ -101,17 +104,18 @@ public class BookingAction extends BaseAction {
 	public String updateAjax() throws IOException, ServletException{
 	    try{
 			
-			String name = request.getParameter("name")==null?"x":request.getParameter("name");
-			String town = request.getParameter("town")==null?"x":request.getParameter("town");
+			String parking_id = request.getParameter("parking_id")==null?"x":request.getParameter("parking_id");
+			String slot_id = request.getParameter("slot_id")==null?"x":request.getParameter("slot_id");
+			String email = request.getParameter("email")==null?"x":request.getParameter("email");
 //			conditions.put("email", email);
 //			conditions.put("password", password);
 			//retStr = loginService.insertName(conditions);
 			//retStr = loginService.insertUser(conditions);
-			System.out.println("login successful!name=> "+name+town);
+			System.out.println("booking controler=> "+parking_id+"|"+slot_id+"|"+email);
 			System.out.println("retStr=> "+retStr);
 			
 			SlotBean slot1 =new SlotBean("A","01","Booked","2","08:00","06:00");
-			//SlotBean slot2 =new SlotBean("A","02","Available","2","08:00","06:00");
+			SlotBean slot2 =new SlotBean("A","02","Available","2","08:00","06:00");
 			
 			ArrayList<SlotBean> slots=new ArrayList<SlotBean>();
 			slots.add(slot1);
