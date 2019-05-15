@@ -16,7 +16,7 @@ System.out.println("email:"+userInfo.get("email"));
 		//System.out.println("pwd:"+userInfo.get("password"));
 		email = (String)userInfo.get("email");
 	}
-	if(listParking!=null){
+	if(listParking!=null && listParking.getRowCount()>0 ){
 		System.out.println("listParking_rowcount:"+listParking.getRowCount());
 		System.out.println("AVAILABLE_SPACES:"+listParking.getValueAt(0,listParking.findColumn("AVAILABLE_SPACES")));
 	}
@@ -128,21 +128,28 @@ System.out.println("email:"+userInfo.get("email"));
         
 		//Test Booking button - Ajax Asyn call
 
-        $("#slot_submit").live("click",function(event) {
-        //$("#slot_submit1").click(function() {
+        $("#booking_slot").live("click",function(event) {
+        //$("#booking_slot1").click(function() {
         	//alert($(this).parent().attr("id"));
         	//alert($(this).parent().parent().children().eq(2).attr("id"));
-        	$(this).parent().parent().children().eq(2).text("Unavailable"); 
+        	//$(this).parent().parent().children().eq(2).text("Unavailable");
         	var parking_id = $(this).parent().parent().children().eq(0).text();       	
         	var slot_id    = $(this).parent().parent().children().eq(1).text();
+        	var status     = $(this).parent().parent().children().eq(2);
+        	
         	alert("parking_id:="+parking_id);
         	alert("slot_id:="+slot_id);
            	 //$('#status1').text("Unavailable"); 
-             //$("#slot_submit1").toggleClass("btn-outline-danger");
+             //$("#booking_slot1").toggleClass("btn-outline-danger");
             alert("email=>"+ "<%=email%>");
-            $.get('<%=path%>/bookingAction!updateAjax.action',{parking_id: parking_id , slot_id: slot_id ,email: "<%=email%>" },function(responseJson) {
+            $.get('<%=path%>/bookingAction!bookingSlot.action',{parking_id:parking_id , slot_id: slot_id,email: "<%=email%>" },function(responseJson) {
 			 	if(responseJson!=null){
-				
+					alert("booking successful!");
+					$.each(responseJson, function(key,value) { 
+						//$(this).parent().parent().children().eq(2).text(value['status']);
+						//$("#booking_slot").parent().parent().children().eq(2).text("Unavailable");
+						status.text(value['status']);
+					})	
 			 	}
                	$('#a_slot4').text("Unavailable"); 
                	$("#slot4").toggleClass("btn-outline-danger");
@@ -161,8 +168,8 @@ System.out.println("email:"+userInfo.get("email"));
         $("#tableDetails").show();  
   		$("#showdetails" ).show();  
         $("#tableInfo").hide();  
-        alert($("#parkingArea").value);
-        $.get('<%=path%>/bookingAction!listSlots.action',function(responseJson) {
+        alert($( "#parkingArea" ).val());
+        $.get('<%=path%>/bookingAction!listSlots.action',{parking_id:$("#parkingArea").val()},function(responseJson) {
 			if(responseJson!=null){
 				$("#tableDetails").find("tr:gt(0)").remove();
 				var table1 = $("#tableDetails");
@@ -177,7 +184,7 @@ System.out.println("email:"+userInfo.get("email"));
 				"<td id=\"price"+rowTr+"\">"+
 				"<td id=\"booking_time"+rowTr+"\">"+
 				"<td id=\"booking_button"+rowTr+"\">"+
-					"<button type=\"button\" class=\"btn btn-outline-danger\"  id=\"slot_submit\">Book Now</button>"+
+					"<button type=\"button\" class=\"btn btn-outline-danger\"  id=\"booking_slot\">Book Now</button>"+
 				"</tr>");
 					rowNew.children().eq(0).text(value['parking_id']); 
 					rowNew.children().eq(1).text(value['slot_id']); 

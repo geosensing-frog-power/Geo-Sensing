@@ -3,8 +3,8 @@ package com.shdic.bean;
 public class SlotBean implements java.io.Serializable{
 	private String parking_id;
 	private String slot_id;
-	private String parking_station;
 	private String status;
+	private String parking_station;
 	private String price ;
 	private String charging_from;
 	private String charging_to;

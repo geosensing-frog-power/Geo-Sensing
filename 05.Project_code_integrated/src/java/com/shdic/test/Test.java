@@ -18,6 +18,31 @@ System.out.println(va.validateStr("1234aaa@a3",1,3));
 System.out.println(va.validateStr("Aaaaaa@aa.com",1,3));
 System.out.println(va.validateNum("123",3,3));
 
+
+
+StringBuffer amoutSql = new StringBuffer(
+		"(CASE  WHEN to_char(sysdate,'HH24:mi') > '06:00' and to_char(sysdate,'HH24:mi') < '07:00' "+
+		"THEN 1"+
+		"WHEN to_char(sysdate,'HH24:mi') >= '07:00' and to_char(sysdate,'HH24:mi') <= '15:00' "+
+		"THEN 2"+
+		"WHEN to_char(sysdate,'HH24:mi') > '15:00' and to_char(sysdate,'HH24:mi') < '16:00' " +
+		"THEN 1 " +
+		"ELSE 0  END) * " + 3
+		);
+StringBuffer sql = new StringBuffer(
+		"INSERT INTO KARL.T_ORDER_DETAILS VALUES " +
+		"(KARL.Q_ORDER_DETAILS.NEXTVAL" +
+		",?" +
+		",?" +
+		",SYSDATE" +
+		",SYSDATE+120/1440" +
+		",KARL.Q_ORDER_DETAILS_RECEPIT.NEXTVAL" +
+		",'PAID'" +
+		"," +amoutSql+
+		",?) "
+	);
+System.out.println("create order sql=>"+sql);
+
 //
 //String value = "aaa";  // 长度不够
 //
