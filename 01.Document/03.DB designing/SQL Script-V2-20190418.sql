@@ -8,7 +8,7 @@ charging_from  varchar2  (8)     ,   --'08:00 AM'
 charging_to    varchar2  (8)     ,   --'16:00 PM'
 location_lat    varchar2	(30),
 location_lng	varchar2	(30),
-status       varchar2	(10),
+status       varchar2	(15),
 price        number(10)
 );
 
@@ -32,6 +32,7 @@ commit;
 
 
 --T_mapping_zone
+drop table karl.T_mapping_zone;
 create table karl.T_mapping_zone (
 parking_id			varchar2	(10),
 parking_zone_color	varchar2	(30),
@@ -41,24 +42,54 @@ location_lng		varchar2	(30)
 
 
 --T_order_details
+drop table karl.T_order_details;
 create table karl.T_order_details (
-order_id			varchar2	(10) not null,
-start_time	date	        ,
-end_time	date	        ,
+order_id	varchar2	(10) not null,
 parking_id		varchar2	(10),
 slot_id			varchar2	(10),
-recepit_no		varchar2	(30),
-order_status	varchar2	(1 ),
+start_time	date	        ,
+end_time	date	        ,
+recepit_no		varchar2	(30),  --start with 5 bit number
+order_status	varchar2	(10),  --0' - unpaid  '1'- paid
 Amount			number		(10),
-user_id         varchar2    (10)
+email         varchar2    (30)
 );
 
 create unique index karl.pk_order_details on  karl.T_order_details(order_id) ; 
 alter table karl.T_order_details add constraint pk_order_details primary key (order_id) using index;
 
 
+--create 
+CREATE SEQUENCE karl.Q_order_details
+MINVALUE 1 
+NOMAXVALUE 
+INCREMENT BY 1 
+START WITH 1 cache 20;
+
+CREATE SEQUENCE karl.Q_order_details_recepit
+MINVALUE 1 
+NOMAXVALUE 
+INCREMENT BY 1 
+START WITH 10000001 cache 20;
+
+--insert SQL
+--INSERT INTO KARL.T_ORDER_DETAILS VALUES (KARL.Q_ORDER_DETAILS.NEXTVAL,?,?,SYSDATE,SYSDATE+120/1440,KARL.Q_ORDER_DETAILS_RECEPIT.NEXTVAL,'PAID',?,?)
+--calculate amout of hour booking that needs to be charged, defaut booking time is 2 hours
+--input value(sysdate) = T_order_details.start_time
+SELECT (CASE  WHEN to_char(sysdate,'HH24:mi') > '06:00' and to_char(sysdate,'HH24:mi') < '07:00'
+       THEN 1
+           
+       WHEN to_char(sysdate,'HH24:mi') >= '07:00' and to_char(sysdate,'HH24:mi') <= '15:00'     
+       THEN 2
+            
+       WHEN to_char(sysdate,'HH24:mi') > '15:00' and to_char(sysdate,'HH24:mi') < '16:00'     
+       THEN 1 
+       
+       ELSE 0  END) * 3 'AMOUT' ,sysdate
+from dual;     
 
 --T_user_info
+drop table karl.T_user_info;
 create table karl.T_user_info (
 user_id		varchar2	(10) not null,
 firstname	varchar2	(30) not null,
