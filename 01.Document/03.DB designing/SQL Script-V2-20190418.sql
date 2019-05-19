@@ -44,15 +44,16 @@ location_lng		varchar2	(30)
 --T_order_details
 drop table karl.T_order_details;
 create table karl.T_order_details (
-order_id	varchar2	(10) not null,
+order_id		varchar2	(10) not null,
 parking_id		varchar2	(10),
 slot_id			varchar2	(10),
-start_time	date	        ,
-end_time	date	        ,
+start_time		date	        ,
+end_time		date	        ,
 recepit_no		varchar2	(30),  --start with 5 bit number
 order_status	varchar2	(10),  --0' - unpaid  '1'- paid
 Amount			number		(10),
-email         varchar2    (30)
+email         varchar2    (30),
+Send_email_status varchar2(10)     --'yes' --null by default
 );
 
 create unique index karl.pk_order_details on  karl.T_order_details(order_id) ; 
@@ -76,17 +77,14 @@ START WITH 10000001 cache 20;
 --INSERT INTO KARL.T_ORDER_DETAILS VALUES (KARL.Q_ORDER_DETAILS.NEXTVAL,?,?,SYSDATE,SYSDATE+120/1440,KARL.Q_ORDER_DETAILS_RECEPIT.NEXTVAL,'PAID',?,?)
 --calculate amout of hour booking that needs to be charged, defaut booking time is 2 hours
 --input value(sysdate) = T_order_details.start_time
-SELECT (CASE  WHEN to_char(sysdate,'HH24:mi') > '06:00' and to_char(sysdate,'HH24:mi') < '07:00'
-       THEN 1
-           
-       WHEN to_char(sysdate,'HH24:mi') >= '07:00' and to_char(sysdate,'HH24:mi') <= '15:00'     
-       THEN 2
-            
-       WHEN to_char(sysdate,'HH24:mi') > '15:00' and to_char(sysdate,'HH24:mi') < '16:00'     
-       THEN 1 
-       
-       ELSE 0  END) * 3 'AMOUT' ,sysdate
-from dual;     
+--SELECT (CASE  WHEN to_char(sysdate,'HH24:mi') > '06:00' and to_char(sysdate,'HH24:mi') < '07:00'
+--       THEN 1           
+--       WHEN to_char(sysdate,'HH24:mi') >= '07:00' and to_char(sysdate,'HH24:mi') <= '15:00'     
+--       THEN 2           
+--       WHEN to_char(sysdate,'HH24:mi') > '15:00' and to_char(sysdate,'HH24:mi') < '16:00'     
+--       THEN 1      
+--       ELSE 0  END) * 3 'AMOUT' ,sysdate
+--from dual;     
 
 --T_user_info
 drop table karl.T_user_info;
