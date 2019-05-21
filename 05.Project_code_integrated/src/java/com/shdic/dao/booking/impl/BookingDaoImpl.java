@@ -38,7 +38,8 @@ public class BookingDaoImpl implements BookingDao {
 			StringBuffer sql = new StringBuffer(
 					"SELECT  PARKING_ID,SLOT_ID,STATUS,PRICE,CHARGING_FROM,CHARGING_TO " +
 					"FROM T_PARKING_SLOTS " +
-					"WHERE STATUS ='Available' AND PARKING_ID=? "	
+					//"WHERE STATUS ='Available' AND PARKING_ID=? "	
+					"WHERE PARKING_ID=? "	
 				);
 				System.out.println("SQL="+sql+"*"+parking_id);
 				ps = conn.prepareStatement(sql.toString());
