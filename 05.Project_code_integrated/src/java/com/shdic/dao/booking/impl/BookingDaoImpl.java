@@ -9,9 +9,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.shdic.bean.OrderDetailBean;
 import com.shdic.bean.SlotBean;
 import com.shdic.conn.CreateConn;
 import com.shdic.dao.booking.BookingDao;
+import com.shdic.test.SendingEmail;
 
 @SuppressWarnings("unchecked")
 @Repository("bookingDao")
@@ -188,7 +190,7 @@ public class BookingDaoImpl implements BookingDao {
 						",KARL.Q_ORDER_DETAILS_RECEPIT.NEXTVAL" +
 						",'PAID'" +
 						"," +amoutSql+
-						",?) "
+						",?,null) "
 					);
 				System.out.println("create order sql=>"+sql);
 				ps = conn.prepareStatement(sql.toString());
@@ -197,10 +199,49 @@ public class BookingDaoImpl implements BookingDao {
 				ps.setString(3, email);
 				ps.executeUpdate();		
 				
-				//Step 3 : Send email with receipt 
+				//Step 3 : Get orderdetails bean & Send email with receipt 
+				//get orderdetails
+				sql = new StringBuffer(
+						"SELECT * FROM KARL.T_ORDER_DETAILS " +
+						"WHERE EMAIL = ? AND " +
+						"SEND_EMAIL_STATUS IS NULL"	
+					);
+				ps = conn.prepareStatement(sql.toString());
+				ps.setString(1, email);
+				rs = ps.executeQuery();		
+				OrderDetailBean orderDetail = new OrderDetailBean();
 				
-				
-				
+				//sending email with pdf recepit 
+				SendingEmail sendingEmail = new SendingEmail();
+				if (rs!=null){
+					for (int i = 0; rs.next(); i++){	
+						orderDetail.setOrder_id(rs.getString("ORDER_ID"));
+						orderDetail.setParking_id(rs.getString("PARKING_ID"));
+						orderDetail.setSlot_id(rs.getString("SLOT_ID"));
+						orderDetail.setStart_time(rs.getString("START_TIME"));
+						orderDetail.setEnd_time(rs.getString("END_TIME"));
+						orderDetail.setRecepit_no(rs.getString("RECEPIT_NO"));
+						orderDetail.setOrder_status(rs.getString("ORDER_STATUS"));
+						orderDetail.setAmount(rs.getString("AMOUNT"));
+						orderDetail.setEmail(rs.getString("EMAIL"));
+						orderDetail.setSend_email_status(rs.getString("SEND_EMAIL_STATUS"));
+
+						System.out.println("orderDetails get success!");
+						sendingEmail.sendEmailWithRcepit(orderDetail);
+						//update T_ORDER_DETAILS => send_email_status
+						sql = new StringBuffer(
+								"UPDATE KARL.T_ORDER_DETAILS SET send_email_status = 'YES' " +
+								"WHERE  ORDER_ID = ?  " 	
+							);
+							System.out.println("SQL="+sql+"*"+orderDetail.getOrder_id());
+							ps = conn.prepareStatement(sql.toString());
+							ps.setString(1, orderDetail.getOrder_id());
+							ps.executeUpdate();
+						
+				    }
+
+				}
+
 				//after commit & traction ends 
 				conn.commit();			
 		}catch(Exception e){

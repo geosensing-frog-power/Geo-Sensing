@@ -11,14 +11,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="generator" content="">
     <title>Signin GeoSense Parking</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
-
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-      .bd-placeholder-img {
+       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
         -webkit-user-select: none;
@@ -32,11 +29,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           font-size: 3.5rem;
         }
       }
+   
     </style>
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
   </head>
-  <body class="text-center">
+  <body class="bg-light text-center">
+  
+  <div class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <a href="index.jsp"> <img class="mb-2 mr-4" src="png/location.png" alt="" width="34" height="34"> </a>
+  <h4 class="my-0 mr-md-auto font-weight-normal">Geo-Sensing</h4>
+  <nav class="my-2 my-md-0 mr-md-3">
+ <a class="btn btn-outline-primary mx-1" href="register.jsp">Register</a>
+      </nav>
+</div>
+    <div class="container">
+ 
     <form class="form-signin" name="loginForm" method="POST" action="<%=path%>/loginAction!searchUser.action">
   <img class="mb-4" src="png/location.png" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Please sign in..</h1>
@@ -53,5 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2019 GeoSense Parking</p>
   
 </form>
+</div>
+
 </body>
 </html>

@@ -10,13 +10,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>Register Page</title>
 
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -45,6 +42,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="css/form-validation.css" rel="stylesheet">
   </head>
   <body class="bg-light">
+    <div class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+   <a href="index.jsp"> <img class="mb-2 mr-4" src="png/location.png" alt="" width="34" height="34"> </a>
+  <h4 class="my-0 mr-md-auto font-weight-normal">Geo-Sensing</h4>
+  <nav class="my-2 my-md-0 mr-md-3">
+  <a class="btn btn-outline-secondary" href="login.jsp">Sign in</a>
+      </nav>
+</div>
     <div class="container">
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" src="png/location.png" alt="" width="72" height="72">
