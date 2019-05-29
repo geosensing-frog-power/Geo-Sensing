@@ -310,11 +310,24 @@ map.addMarker({
         draggable: true,
         inside:function(m, f){
           alert('inside the fence');
+          AddMarker();
+          
         },
         outside: function(m, f){
           alert('Outside the fence');
         }
 }); 
+
+function AddMarker(){
+map.addMarker({
+        lat: -12.371684359129558,
+        lng: 130.86758096682388
+}); 
+
+}
+
+
+
 map.drawRoute({
 origin: [position.coords.latitude, position.coords.longitude],
 destination: [-12.371684359129558, 130.86758096682388],
@@ -351,7 +364,7 @@ strokeWeight: 6
 		System.out.println("AVAILABLE_SPACES:"+listParking.getValueAt(i,listParking.findColumn("AVAILABLE_SPACES")));
    %>
     <tr>
-      <th scope="row"><button value="A" id="parkingArea" type="button" class="btn btn-outline-success" >Purple A</button></th>
+      <th scope="row"><button value="A" id="parkingArea" type="button" class="btn btn-outline-success" ><%=listParking.getValueAt(i,listParking.findColumn("PARKING_STATION"))%></button></th>
       <td><%=listParking.getValueAt(i,listParking.findColumn("AVAILABLE_SPACES"))%></td>
       <td>$<%=listParking.getValueAt(i,listParking.findColumn("PRICES"))%>-2hr</td>
       <td><%=listParking.getValueAt(i,listParking.findColumn("CHARGING_FROM"))%>-

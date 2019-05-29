@@ -2,6 +2,16 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+String alertMsg = null;
+alertMsg = (String)session.getAttribute("retStr");
+if(alertMsg!=null){
+	%>
+	<script type="text/javascript">
+		alert("<%=alertMsg%>");
+	</script>
+	<%
+}
 %>
 
 <!doctype html>
@@ -85,14 +95,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
         <div class="col-md-6 mb-3">
-        
+        <!-- 
           <div class="">
             <button type="button" class="btn btn-success">Light</button>
             <div class="invalid-feedback" style="width: 100%;">
               Your Password is required.
             </div>
           </div>
-            
+          -->   
         </div>
             <div class="col-md-6 mb-3">
         
@@ -162,6 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 
 <script type="text/javascript">
+
+
 function isValid(text) {
 	return (/^[A-Za-z_][A-Za-z0-9_]*$/.test(text));
 }
