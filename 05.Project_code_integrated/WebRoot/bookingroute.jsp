@@ -34,8 +34,6 @@ System.out.println("email:"+userInfo.get("email"));
 <script type="text/javascript" src="js/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD53PH_kXaJD53yK6fck6TfkFahftkOY3g"></script>
 <script type="text/javascript" src="gmaps/gmaps.js"></script>
-<script type="text/javascript" src="gmaps/gmaps.min.js"></script>
-<script type="text/javascript" src="gmaps/gmaps.min.js.map"></script>
 <script type="text/javascript" src="js/geoLocation.js"></script>   
 <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -83,150 +81,92 @@ System.out.println("email:"+userInfo.get("email"));
   <h5 class="alert alert-secondary">
       <a href="booking.html">Start your Booking</a></h5> 
 </div>
-    <div id="button">
-    	<button type="button" class="btn btn-outline-success"  id="testMap">testMap</button>
-    </div>   
-   <div id="button">
-    	<button type="button" class="btn btn-outline-success"  id="startRouting">startRouting</button>
-    </div>   
+   
  <script type="text/javascript">
     var map;
-    
-    function initMap() {
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-
-
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-        ///document.getElementById('mode').addEventListener('change', function() {
-        //calculateAndDisplayRoute(directionsService, directionsDisplay);
-        //});
-      }
-      
-    //function calculateAndDisplayRoute(directionsService, directionsDisplay,position) {
-    
-    function calculateAndDisplayRoute(position) {
-    		var directionsDisplay = new google.maps.DirectionsRenderer;
-	        var directionsService = new google.maps.DirectionsService;
-    		alert("define map");
-	    	var googlemap = new google.maps.Map(document.getElementById('map'), {
-	          zoom: 14,
-	         center: {lat: -12.368438971967333, lng: 130.86813254695653}
-	        });
-	
-	        directionsDisplay.setMap(googlemap);
-	        
-			alert("calculate");
-			//var selectedMode = document.getElementById('mode').value;
-			var selectedMode = "DRIVING";
-	        //var startpointA = new google.maps.LatLng(-12.368438971967333,130.86813254695653);
-	        var startpointA = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-
-		    var endpointB = new google.maps.LatLng(-12.371799145462651,130.86761444807055);
-		    
-	        directionsService.route({
-	          //origin: {lat: -12.368438971967333, lng: 130.86813254695653},  // pointA.
-	          //destination: {lat: -12.371799145462651, lng: 130.86761444807055},  // pointB
-	          origin: startpointA,
-	          destination: endpointB,
-	          // Note that Javascript allows us to access the constant
-	          // using square brackets and a string value as its
-	          // "property."
-	          travelMode: google.maps.TravelMode[selectedMode]
-	        }, function(response, status) {
-	          if (status == 'OK') {
-	            directionsDisplay.setDirections(response);
-	          } else {
-	            window.alert('Directions request failed due to ' + status);
-	          }
-	        });
-	        //user location
-	        if (navigator.geolocation) {
-            	getUserLocation(googlemap);
-            	
-            	setInterval(function () {
-                	getUserLocation(googlemap);
-           		 }, 5000);
-        }
-	        //getUserLocation(googlemap);
-      }
-      
-   
-      function getUserLocation(googlemap) {
-            if (navigator.geolocation) {
-                alert("navigator.geolocation");
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var point = new google.maps.LatLng(position.coords.latitude,
-                        position.coords.longitude);
-				   alert("position.coords.longitude"+position.coords.longitude);
-				   
-                   if (typeof getUserLocation.user_marker == 'undefined') {
-                   //if (true) {
-                        getUserLocation.user_marker = new google.maps.Marker({
-                            position:point,
-                            map: googlemap
-                            //icon:'person.png'
-                        });
-                        alert("add  maker");
-                        getUserLocation.user_marker_window = new google.maps.InfoWindow({
-                            content:'You'
-                        });
-
-                        //google.maps.event.addListener(getUserLocation.user_marker, 'click', function () {
-                        //    getUserLocation.user_marker_window.open(getUserLocation.user_marker);
-                        //});
-                    }
-                    //getUserLocation.user_marker.setPosition(point);
-                });
-            }
-        }
-		/* 
-        if (navigator.geolocation) {
-            getUserLocation(gmap);
-            setInterval(function () {
-                getUserLocation(gmap);
-            }, 5000);
-        }
-      */
     $(document).ready(function(){
        map = new GMaps({
         el: '#map',
         lat: -12.368438971967333, 
         lng: 130.86813254695653,
-        zoom: 15
+        zoom: 15,
+        mapTypeControl: false
           });
    
-   
-   
-   	
-   
-   	  /* */
-   	  $("#startRouting").click(function(){
-	   	    alert("dcwcw");
-		//get location,start routing   
-			GMaps.geolocate({
-			    success: function(position){	      
-		       	 	calculateAndDisplayRoute(position);   
-		    	}
-	 	 	});   
-	  });
-  
-   	
-
-	
-		
-		
-    	$("#tableDetails").hide();  
-		$("#showdetails" ).hide();  
-         
+    $("#tableDetails").hide();  
+	$("#showdetails" ).hide();  
+        
+        //show original table
+        $( "#showdetails" ).click(function() {           
+            $("#tableDetails").hide(); 
+        	$("#tableInfo").show();  
+            $("#showdetails" ).hide();  
+            $.post( "<%=path%>/loginAction!searchUser.action", function( data ) {
+  				alert("searchUser again-back!");
+			});
+			location.reload(true);
+        });
+        
+        
+         //once booked change slot to unavailable 
+        $( "#slot1" ).click(function() {         
+           $('#a_slot1').text("Unavailable");   
+            $("#slot1").toggleClass("btn-outline-danger");
+        });
+       
+         $( "#slot2" ).click(function() {           
+           $('#a_slot2').text("Unavailable");   
+        });
+              
+         $( "#slot3" ).click(function() {           
+           $('#a_slot3').text("Unavailable");   
+        });
+                
+         $( "#slot4" ).click(function() {   
+           	 $('#a_slot4').text("Unavailable"); 
+             $("#slot4").toggleClass("btn-outline-success");
+        });
+        
+		//Test Booking button - Ajax Asyn call
+		 
+        $("#booking_slot").live("click",function(event) {
+        //$("#booking_slot1").click(function() {
+        	//alert($(this).parent().attr("id"));
+        	//alert($(this).parent().parent().children().eq(2).attr("id"));
+        	//$(this).parent().parent().children().eq(2).text("Unavailable");
+        	var parking_id = $(this).parent().parent().children().eq(0).text();       	
+        	var slot_id    = $(this).parent().parent().children().eq(1).text();
+        	var status     = $(this).parent().parent().children().eq(2);
+        	var booking_button = $(this).parent().parent().children().eq(5);
+        	alert("parking_id:="+parking_id);
+        	alert("slot_id:="+slot_id);
+           	 //$('#status1').text("Unavailable"); 
+            //$(this).toggleClass("btn-outline-danger");
+            alert("email=>"+ "<%=email%>");
+            $.get('<%=path%>/bookingAction!bookingSlot.action',{parking_id:parking_id , slot_id: slot_id,email: "<%=email%>" },function(responseJson) {
+			 	if(responseJson!=null){
+					alert("booking successful!");
+					booking_button.children().toggleClass("btn-outline-danger");
+					booking_button.children().attr("disabled",true);
+					$.each(responseJson, function(key,value) { 
+						//$(this).parent().parent().children().eq(2).text(value['status']);
+						//$("#booking_slot").parent().parent().children().eq(2).text("Unavailable");
+						status.text(value['status']);
+					})	
+			 	}
+               	$('#a_slot4').text("Unavailable"); 
+               	$("#slot4").toggleClass("btn-outline-danger");
+        	});
+        });      
     
         
-    $( "#testMap" ).click(function(event) {
+    $( "#parkingArea" ).click(function(event) {
  		map = new GMaps({
         el: '#map',
         lat: -12.371799145462651, 
         lng: 130.86761444807055,
-        zoom: 20
+        zoom: 20,
+        mapTypeControl: false
           });   
           
         $("#tableDetails").show();  
@@ -271,7 +211,7 @@ System.out.println("email:"+userInfo.get("email"));
 		});
           
 
-//drawPolygon        
+        
 var pathB = [
 new google.maps.LatLng(-12.371684359129558, 130.86758096682388),
 new google.maps.LatLng(-12.371722348017714, 130.86762790548164),
@@ -284,7 +224,7 @@ new google.maps.LatLng(-12.371823215038793, 130.86753536927063),
 new google.maps.LatLng(-12.371798325777478, 130.86756085025627),
 new google.maps.LatLng(-12.371756407016196, 130.86751927601654)];
         
-polygon1 = map.drawPolygon({
+polygon = map.drawPolygon({
         paths: pathA,
         strokeColor: '#000000',
         strokeOpacity: 1,
@@ -292,8 +232,7 @@ polygon1 = map.drawPolygon({
         fillColor: '#ff0000',
         fillOpacity: 1
       });    
-
-polygon2 = map.drawPolygon({
+       polygon = map.drawPolygon({
         paths: pathB,
         strokeColor: '#000000',
         strokeOpacity: 1,
@@ -301,33 +240,27 @@ polygon2 = map.drawPolygon({
         fillColor: '#008000',
         fillOpacity: 1
       }); 
-
-   
-         GMaps.geolocate({
-		    success: function(position){     	 	
-				map.addMarker({
-			        lat: position.coords.latitude,
-			        lng: position.coords.longitude,
-			        fences: [polygon1],
-			        draggable: true,
-			        inside:function(m, f){
-			          alert('inside the fence');
-			        },
-			        outside: function(m, f){
-			          alert('Outside the fence');
-			        }
-
-				}); 
-				
-		    }    
-		    
-		});     
+      GMaps.geolocate({
+    success: function(position){
+    
+    
+    
+    
+    
+    
+map.drawRoute({
+origin: [position.coords.latitude, position.coords.longitude],
+destination: [-12.371684359129558, 130.86758096682388],
+travelMode: 'driving',
+strokeColor: '#131540',
+strokeOpacity: 0.6,
+strokeWeight: 6
 });
-
-
-	
-
-var path = [
+    }
+});
+        
+});
+          var path = [
             [-12.36865307501286, 130.86828340572174],
             [-12.368841711626416, 130.8690344242459],
             [-12.369208504651823, 130.87055791896637],
@@ -352,7 +285,7 @@ var path = [
             [-12.372492288782292, 130.86467315665425]
      
           ];
-      polygon3 = map.drawPolygon({
+      polygon = map.drawPolygon({
         paths: path,
         strokeColor: '#FF0000',
         strokeOpacity: 1,
@@ -361,29 +294,29 @@ var path = [
         fillOpacity: 0.6
       });
       GMaps.geolocate({
-		    success: function(position){
-	       	 	
-				map.addMarker({
-			        lat: position.coords.latitude,
-			        lng: position.coords.longitude,
-			        fences: [polygon3],
-			        draggable: true,
-			        inside:function(m, f){
-			          alert('inside the fence');
-			        },
-			        outside: function(m, f){
-			          alert('Outside the fence');
-			        }
-
-				}); 
-				
-		    }
-	});
-   
-
-
-		
-		
+    success: function(position){
+map.addMarker({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        fences: [polygon],
+        draggable: true,
+        inside:function(m, f){
+          alert('inside the fence');
+        },
+        outside: function(m, f){
+          alert('Outside the fence');
+        }
+}); 
+map.drawRoute({
+origin: [position.coords.latitude, position.coords.longitude],
+destination: [-12.371684359129558, 130.86758096682388],
+travelMode: 'driving',
+strokeColor: '#131540',
+strokeOpacity: 0.6,
+strokeWeight: 6
+});
+    }
+});
       
     });
      
@@ -392,8 +325,7 @@ var path = [
       
 <div class="container" style="overflow:visible">
   <div id="map"></div>
-    <div class="container" style="overflow:visible">
-  <div id="map"></div>
+    
 <table class="table" id="tableInfo">
   <thead class="thead-dark">
     <tr>

@@ -67,7 +67,7 @@ public class LoginAction extends BaseAction{
 					System.out.println("login successful!start dispatch!booking=> "+retStr.equals("success"));
 					session.put("userInfo", userInfo);
 					session.put("listParking", listParking);
-					RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/booking.jsp");
+					RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/booking_test.jsp");
 					System.out.println("login successful!finish dispatch!booking=> ");
 					reqDispatcher.forward(request,response);
 					System.out.println("dispatched!");

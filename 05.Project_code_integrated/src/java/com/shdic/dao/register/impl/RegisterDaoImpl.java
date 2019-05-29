@@ -63,8 +63,6 @@ public class RegisterDaoImpl implements RegisterDao {
 						"cc_number," +
 						"cc_cvv," +
 						"cc_expiration) values (karl.Q_user_info.nextval,?,?,?,?,?,?,?,?) ");
-				
-				System.out.println("SQL="+sql+"*"+email);
 				ps = conn.prepareStatement(sql.toString());
 				ps.setString(1, firstname);
 				ps.setString(2, lastname);

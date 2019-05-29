@@ -89,7 +89,8 @@ System.out.println("email:"+userInfo.get("email"));
         el: '#map',
         lat: -12.368438971967333, 
         lng: 130.86813254695653,
-        zoom: 15
+        zoom: 15,
+        mapTypeControl: false
           });
    
     $("#tableDetails").hide();  
@@ -164,7 +165,8 @@ System.out.println("email:"+userInfo.get("email"));
         el: '#map',
         lat: -12.371799145462651, 
         lng: 130.86761444807055,
-        zoom: 20
+        zoom: 20,
+        mapTypeControl: false
           });   
           
         $("#tableDetails").show();  
@@ -238,8 +240,34 @@ polygon = map.drawPolygon({
         fillColor: '#008000',
         fillOpacity: 1
       }); 
+      GMaps.geolocate({
+    success: function(position){
+    map.addMarker({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        fences: [polygon],
+        draggable: true,
+        inside:function(m, f){
+          alert('inside the fence');
+        },
+        outside: function(m, f){
+          alert('Outside the fence');
+        }
+}); 
+map.drawRoute({
+origin: [position.coords.latitude, position.coords.longitude],
+destination: [-12.371684359129558, 130.86758096682388],
+travelMode: 'driving',
+strokeColor: '#131540',
+strokeOpacity: 0.6,
+strokeWeight: 6
+});
+    }
+});
         
 });
+
+
           var path = [
             [-12.36865307501286, 130.86828340572174],
             [-12.368841711626416, 130.8690344242459],
@@ -287,6 +315,14 @@ map.addMarker({
           alert('Outside the fence');
         }
 }); 
+map.drawRoute({
+origin: [position.coords.latitude, position.coords.longitude],
+destination: [-12.371684359129558, 130.86758096682388],
+travelMode: 'driving',
+strokeColor: '#131540',
+strokeOpacity: 0.6,
+strokeWeight: 6
+});
     }
 });
       

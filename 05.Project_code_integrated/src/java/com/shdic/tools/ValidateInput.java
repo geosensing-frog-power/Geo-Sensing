@@ -37,7 +37,7 @@ public class ValidateInput {
 	
 	
 	public boolean validateEmail(String inputEmail){ 
-	    //E-mail pattern allowed only
+	    //E-mail pattern allowed only :   xxx@xxx.xxx
 	    regStr="^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"; 
         Pattern pattern = Pattern.compile(regStr);
         Matcher matcher = pattern.matcher(inputEmail);  
@@ -47,7 +47,6 @@ public class ValidateInput {
             return true;  
         }  
         return false;  
-		
 	}
 	
 	public void setRegStr(String newStr){
