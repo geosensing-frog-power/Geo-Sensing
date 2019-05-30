@@ -2,6 +2,15 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String alertMsg = null;
+alertMsg = (String)session.getAttribute("retStr");
+if(alertMsg!=null){
+	%>
+	<script type="text/javascript">
+		alert("<%=alertMsg%>");
+	</script>
+	<%
+}
 %>
 <!doctype html>
 <html lang="en">

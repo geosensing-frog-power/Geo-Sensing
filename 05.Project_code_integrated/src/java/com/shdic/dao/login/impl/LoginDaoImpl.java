@@ -118,9 +118,9 @@ public class LoginDaoImpl implements LoginDao {
 
 			//conn.setAutoCommit(false);
 			/**/
-			StringBuffer sql = new StringBuffer("SELECT  PARKING_ID, COUNT(SLOT_ID) AVAILABLE_SPACES ,PRICE,CHARGING_FROM,CHARGING_TO FROM T_PARKING_SLOTS WHERE STATUS ='Available' GROUP BY PARKING_ID  ,PRICE, CHARGING_FROM,CHARGING_TO");
+			StringBuffer sql = new StringBuffer("SELECT  PARKING_ID, COUNT(SLOT_ID) AVAILABLE_SPACES ,PRICE,CHARGING_FROM,CHARGING_TO,PARKING_STATION FROM T_PARKING_SLOTS WHERE STATUS ='Available' GROUP BY PARKING_ID  ,PRICE, CHARGING_FROM,CHARGING_TO,PARKING_STATION");
 	    	DefaultTableModel   dtm   =   new   DefaultTableModel();
-	    	String [] columnNames={"PARKING_ID","AVAILABLE_SPACES","PRICES","CHARGING_FROM","CHARGING_TO"};
+	    	String [] columnNames={"PARKING_ID","AVAILABLE_SPACES","PRICES","CHARGING_FROM","CHARGING_TO","PARKING_STATION"};
 	    	dtm=new DefaultTableModel(columnNames,0);
 	    	if(conn==null){
 	    		System.out.println("conn is null:");
@@ -137,8 +137,9 @@ public class LoginDaoImpl implements LoginDao {
 					data.add(rs.getString("AVAILABLE_SPACES"));
 					data.add(rs.getString("PRICE"));
 					data.add(rs.getString("CHARGING_FROM"));
-					data.add(rs.getString("CHARGING_FROM"));
 					data.add(rs.getString("CHARGING_TO"));
+					data.add(rs.getString("PARKING_STATION"));
+					//data.add(rs.getString("PARKING_STATION"));
 					dtm.addRow(data);	
 					System.out.println(dtm.getDataVector()+"\n");
 
