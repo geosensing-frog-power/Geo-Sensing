@@ -53,7 +53,7 @@ if(alertMsg!=null){
   </head>
   <body class="bg-light">
     <div class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-   <a href="index.jsp"> <img class="mb-2 mr-4" src="png/location.png" alt="" width="34" height="34"> </a>
+   <a href="index.jsp"> <img class="mb-2 mr-4" src="png/location.png" alt="" width="54" height="54"> </a>
   <h4 class="my-0 mr-md-auto font-weight-normal">Geo-Sensing</h4>
   <nav class="my-2 my-md-0 mr-md-3">
   <a class="btn btn-outline-secondary" href="login.jsp">Sign in</a>
@@ -61,7 +61,7 @@ if(alertMsg!=null){
 </div>
     <div class="container">
   <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="png/location.png" alt="" width="72" height="72">
+    <img class="d-block mx-auto mb-4" src="png/location.png" alt="" width="122" height="122">
     <h2>Register Page</h2>
     <p class="lead">Please enter your details below. All of your information will be secured</p>
   </div>
@@ -193,5 +193,7 @@ function insertuserForm(){
 		document.registeruser.submit();
 }
 </script>
+
+<% session.removeAttribute("retStr"); %>
 
 

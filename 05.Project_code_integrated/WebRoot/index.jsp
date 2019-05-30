@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body class="bg-light">
     <div class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <img class="mb-2 mr-4" src="png/location.png" alt="" width="34" height="34"> 
+        <img class="mb-2 mr-4" src="png/location.png" alt="" width="54" height="54"> 
   <h4 class="my-0 mr-md-auto font-weight-normal">Geo-Sensing</h4>
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="#">How It Works</a>
