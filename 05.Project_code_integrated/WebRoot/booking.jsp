@@ -35,6 +35,10 @@ System.out.println("email:"+userInfo.get("email"));
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD53PH_kXaJD53yK6fck6TfkFahftkOY3g"></script>
 <script type="text/javascript" src="gmaps/gmaps.js"></script>
 <script type="text/javascript" src="js/geoLocation.js"></script>   
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
@@ -79,7 +83,7 @@ System.out.println("email:"+userInfo.get("email"));
 
 <div class="pricing-header px-3 py-3 mx-auto text-center">
   <h5 class="alert alert-secondary">
-      <a href="booking.html">Start your Booking</a></h5> 
+  Start your Booking</h5> 
 </div>
    
  <script type="text/javascript">
@@ -165,14 +169,14 @@ System.out.println("email:"+userInfo.get("email"));
         el: '#map',
         lat: -12.371799145462651, 
         lng: 130.86761444807055,
-        zoom: 20,
+        zoom: 17,
         mapTypeControl: false
           });   
           
         $("#tableDetails").show();  
   		$("#showdetails" ).show();  
         $("#tableInfo").hide();  
-        alert($( "#parkingArea" ).val());
+/*         alert($( "#parkingArea" ).val()); */
         $.get('<%=path%>/bookingAction!listSlots.action',{parking_id:$("#parkingArea").val()},function(responseJson) {
 			if(responseJson!=null){
 				$("#tableDetails").find("tr:gt(0)").remove();
@@ -224,6 +228,8 @@ new google.maps.LatLng(-12.371823215038793, 130.86753536927063),
 new google.maps.LatLng(-12.371798325777478, 130.86756085025627),
 new google.maps.LatLng(-12.371756407016196, 130.86751927601654)];
         
+
+
 polygon = map.drawPolygon({
         paths: pathA,
         strokeColor: '#000000',
@@ -240,6 +246,9 @@ polygon = map.drawPolygon({
         fillColor: '#008000',
         fillOpacity: 1
       }); 
+      
+
+
       GMaps.geolocate({
     success: function(position){
     map.addMarker({
@@ -255,12 +264,23 @@ polygon = map.drawPolygon({
         }
 }); 
 map.drawRoute({
-origin: [position.coords.latitude, position.coords.longitude],
-destination: [-12.371684359129558, 130.86758096682388],
-travelMode: 'driving',
-strokeColor: '#131540',
-strokeOpacity: 0.6,
-strokeWeight: 6
+	origin: [position.coords.latitude, position.coords.longitude],
+	destination: [-12.371684359129558, 130.86758096682388],
+	travelMode: 'driving',
+	strokeColor: '#131540',
+	strokeOpacity: 0.6,
+	strokeWeight: 6
+});
+
+map.drawOverlay({
+  	lat: position.coords.latitude,
+ 	lng: position.coords.longitude,
+ 	content: '<div class="overlay"><h4>Your Position</h4></div>'
+});
+map.drawOverlay({
+  	lat: -12.371596,
+  	lng: 130.867539,
+    content: '<div class="overlay"><h4>Purple A Parking</h4></div>'
 });
     }
 });
@@ -309,43 +329,76 @@ map.addMarker({
         fences: [polygon],
         draggable: true,
         inside:function(m, f){
-          alert('inside the fence');
-          AddMarker();
+      	  Swal.fire('These are parking lots around you\nyou can start book now!');
+          showTable();
+          hideRemainder();
+          addPurpleA();
           
         },
         outside: function(m, f){
-          alert('Outside the fence');
+          Swal.fire('These is no any parking lot around you\nPlease drive in to available area.');
+          showRemainder();
+          hideTable();
         }
 }); 
-
-function AddMarker(){
+function addPurpleA(){
 map.addMarker({
-        lat: -12.371684359129558,
+        lat: -12.371684359129558, 
         lng: 130.86758096682388
 }); 
+map.drawOverlay({
+  	lat: -12.371596,
+  	lng: 130.867539,
+    content: '<div class="overlay"><h4>Purple A Parking</h4></div>'
+});
+
 
 }
 
 
 
-map.drawRoute({
+/* map.drawRoute({
 origin: [position.coords.latitude, position.coords.longitude],
 destination: [-12.371684359129558, 130.86758096682388],
 travelMode: 'driving',
 strokeColor: '#131540',
 strokeOpacity: 0.6,
 strokeWeight: 6
-});
+}); */
     }
 });
       
     });
+
+
+function hideTable(){
+document.getElementById('tableInfo').style.visibility = "hidden";
+}
+
+
+function showTable(){
+document.getElementById('tableInfo').style.visibility = "visible";
+}
+
+function hideRemainder(){
+document.getElementById('reminder').style.visibility = "hidden";
+}
+
+
+function showRemainder(){
+document.getElementById('reminder').style.visibility = "visible";
+}
+
+
+
      
   </script>     
       
       
 <div class="container" style="overflow:visible">
   <div id="map"></div>
+  
+<h4 id="reminder" >These is no any parking lot around you.Please drive in to available area.</h4>   
     
 <table class="table" id="tableInfo">
   <thead class="thead-dark">
@@ -448,6 +501,9 @@ strokeWeight: 6
     </div>
   </footer>
       </div> 
+<script>
+hideRemainder();
+</script>
 </body>
 </html>
 
