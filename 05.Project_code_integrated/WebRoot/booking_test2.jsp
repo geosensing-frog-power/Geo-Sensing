@@ -78,6 +78,8 @@ System.out.println("email:"+userInfo.get("email"));
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="#">How It Works</a>
     <a class="p-2 text-dark" href="#">Support</a>
+    <a class="p-2 text-dark" href="#"><%=email %> </a>
+    <a class="p-2 text-dark" href="<%=path%>/loginAction!logoutUser.action">| &nbsp Logout</a>
       </nav>
 </div>
 
@@ -106,7 +108,7 @@ System.out.println("email:"+userInfo.get("email"));
         	$("#tableInfo").show();  
             $("#showdetails" ).hide();  
             $.post( "<%=path%>/loginAction!searchUser.action", function( data ) {
-  				alert("searchUser again-back!");
+  				//alert("searchUser again-back!");
 			});
 			location.reload(true);
         });
@@ -142,14 +144,15 @@ System.out.println("email:"+userInfo.get("email"));
         	var slot_id    = $(this).parent().parent().children().eq(1).text();
         	var status     = $(this).parent().parent().children().eq(2);
         	var booking_button = $(this).parent().parent().children().eq(5);
-        	alert("parking_id:="+parking_id);
-        	alert("slot_id:="+slot_id);
+        	//alert("parking_id:="+parking_id);
+        	//alert("slot_id:="+slot_id);
            	 //$('#status1').text("Unavailable"); 
             //$(this).toggleClass("btn-outline-danger");
-            alert("email=>"+ "<%=email%>");
+            //alert("email=>"+ "<%=email%>");
             $.get('<%=path%>/bookingAction!bookingSlot.action',{parking_id:parking_id , slot_id: slot_id,email: "<%=email%>" },function(responseJson) {
 			 	if(responseJson!=null){
-					alert("booking successful!");
+					//alert("booking successful!");
+					
 					booking_button.children().toggleClass("btn-outline-danger");
 					booking_button.children().attr("disabled",true);
 					$.each(responseJson, function(key,value) { 

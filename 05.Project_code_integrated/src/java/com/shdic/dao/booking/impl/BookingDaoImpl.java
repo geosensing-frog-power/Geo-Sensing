@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,8 @@ import com.shdic.test.SendingEmail;
 @SuppressWarnings("unchecked")
 @Repository("bookingDao")
 public class BookingDaoImpl implements BookingDao {
+	private Executor executor = Executors.newFixedThreadPool(10);
+	
 	
 	@Override
 	public ArrayList<SlotBean> listSlots(String parking_id) throws Exception {
@@ -228,7 +232,8 @@ public class BookingDaoImpl implements BookingDao {
 						orderDetail.setSend_email_status(rs.getString("SEND_EMAIL_STATUS"));
 
 						System.out.println("orderDetails get success!");
-						sendingEmail.sendEmailWithRcepit(orderDetail);
+						//sendingEmail.sendEmailWithRcepit(orderDetail);
+						createSendMailThread(sendingEmail,orderDetail);
 						//update T_ORDER_DETAILS => send_email_status
 						sql = new StringBuffer(
 								"UPDATE KARL.T_ORDER_DETAILS SET send_email_status = 'YES' " +
@@ -287,4 +292,21 @@ public class BookingDaoImpl implements BookingDao {
 		
 		return listSlots;
 	}
+	
+	  public void createSendMailThread(final SendingEmail sendingEmail,final OrderDetailBean orderDetail )
+	  {
+		Runnable sendEmailTask=new Runnable() {
+			
+			@Override
+			public void run() {
+				    try {
+				    	sendingEmail.sendEmailWithRcepit(orderDetail);
+				    } catch (Exception e) {
+				    	System.out.println("Send email via thread fails!");
+				      e.printStackTrace();
+				    }
+			}
+		};
+		executor.execute(sendEmailTask);
+	  }	
 }

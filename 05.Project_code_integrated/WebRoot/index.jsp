@@ -54,8 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </nav>
 </div>
 
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">  
   <div class="col-md-5 p-lg-5 mx-auto my-5">
+  <img class="mb-4" src="png/location.png" alt="" width="122" height="122">
     <h1 class="display-4 font-weight-normal">CDU Parking</h1>
     <p class="lead font-weight-normal">Say Goodbye to tickets and coins. </p>  <p class="lead font-weight-normal">This locaton based parking system does it all for you. </p> <p class="lead font-weight-normal"> Just park and walk away.</p>
     <a class="btn btn-outline-secondary" href="register.jsp">Register now </a>
@@ -65,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <footer class="container py-5p t-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
-        <img class="mb-2" src="png/location.png" alt="" width="24" height="24">
+        <img class="mb-2" src="png/location.png" alt="" width="54" height="54">
         <small class="d-block mb-3 text-muted">&copy; 2019 Geo-Sensing</small>
       </div>
 

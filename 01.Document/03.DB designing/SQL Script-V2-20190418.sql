@@ -28,6 +28,15 @@ insert into karl.T_parking_slots values
 insert into karl.T_parking_slots values
 ('A','04','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
 
+insert into karl.T_parking_slots values
+('A','05','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
+insert into karl.T_parking_slots values
+('A','06','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
+--insert into karl.T_parking_slots values
+('A','07','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
+--insert into karl.T_parking_slots values
+('A','08','Purple A','08:00','16:00','-12.371799145462651','130.86761444807055','Available',3);
+
 commit;
 
 

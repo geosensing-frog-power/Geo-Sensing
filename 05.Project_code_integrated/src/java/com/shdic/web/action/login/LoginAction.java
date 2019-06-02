@@ -139,6 +139,44 @@ public class LoginAction extends BaseAction{
 		}
 	}
 	
-	
+	public String logoutUser() throws IOException, ServletException{
+	    
+	    try{
+			
+			String email = request.getParameter("email")==null?"x":request.getParameter("email");
+			String password = request.getParameter("password")==null?"x":request.getParameter("password");
+			System.out.println("login out begins=> "+email+password);
+			System.out.println("retStr=> "+retStr);
+
+	    }catch(Exception e){
+	    	retStr = "Logout failed,Please try it again!";	
+			e.printStackTrace();
+		}finally{
+			//pw(new StringBuffer(retStr));
+			//if (retStr.equals("success")){
+			if(true){
+				//direct to booking page ,login is seccussful			
+				//ServletActionContext.getResponse().sendRedirect("test_direct.jsp");
+				System.out.println("loginout start redicting=> "+retStr);
+				//session.put("userInfo", userInfo);
+				session.remove("userInfo");
+				//session.put("listParking", listParking);
+				session.remove("listParking");
+				//RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/index.jsp");
+				ServletActionContext.getResponse().sendRedirect("index.jsp");
+				//RequestDispatcher reqDispatcher  = request.getRequestDispatcher("/booking.jsp");
+				System.out.println("login out successful!finish dispatch!booking=> ");
+				//reqDispatcher.forward(request,response);
+				//System.out.println("Log!");
+			}else{
+				System.out.println("retStr <> success");
+				session.put("retStr", retStr);
+				ServletActionContext.getResponse().sendRedirect("login.jsp");
+			}
+				
+		}
+		return null;
+
+	}
 
 }
