@@ -81,20 +81,20 @@ public class CreatePdf {
         //定义一个表格单元
         PdfPCell cell = new PdfPCell(new Paragraph("Invoice for " + recepit_no));
         cell.setHorizontalAlignment(1);
-        cell.setFixedHeight(50);
+        cell.setFixedHeight(30);
         //定义一个表格单元的跨度
-        cell.setColspan(7);
+        cell.setColspan(12);
         //把单元加到表格中
         table.addCell(cell);        
         //Add title
         
-        table.addCell("orderNumber");
-        table.addCell("email");
-        table.addCell("parkingId");
-        table.addCell("slotID");
-        table.addCell("startTime");
-        table.addCell("endTime");
-        table.addCell("order_status");
+        table.addCell("OrderNo.");
+        table.addCell("  Email");
+        table.addCell("ParkingId");
+        table.addCell(" SlotID");
+        table.addCell("StartTime");
+        table.addCell("  EndTime");
+        table.addCell("  Amount");
         
         //把下面这9项顺次的加入到表格中，当一行充满时候自动折行到下一行
         table.addCell(order_id);
@@ -103,11 +103,11 @@ public class CreatePdf {
         table.addCell(slot_id);
         table.addCell(start_time);
         table.addCell(end_time);
-        table.addCell(order_status);
+        table.addCell("$"+amount+".00");
         //重新定义单元格
-        cell = new PdfPCell(new Paragraph("cell test2"));
+        cell = new PdfPCell(new Paragraph("Thank you for your booking! Have a nice day!"));
         //定义单元格的跨度
-        cell.setColspan(2);
+        cell.setColspan(12);
         //增加到表格上
         table.addCell(cell);
         //增加到文档中
